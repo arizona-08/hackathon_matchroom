@@ -19,9 +19,8 @@ class Hotel extends Model
         return $this->belongsTo(User::class);
     }
 
-    // a définir une fois qu'on aura la table rooms
-    // public function rooms() {
-    //     return $this->hasMany(Room::class);
-    // }
+    public function rooms() {
+        return $this->hasMany(Room::class);
+    }
 }
 
