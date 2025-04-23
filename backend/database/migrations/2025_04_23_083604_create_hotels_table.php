@@ -19,10 +19,11 @@ return new class extends Migration
             $table->string('address');
             $table->decimal('latitude', 10, 6)->nullable();
             $table->decimal('longitude', 10, 6)->nullable();
-            $table->string('type')->default('hotel');
             $table->float('rating_average')->default(0);
+            $table->string('cancellation_policy')->nullable();
             $table->timestamps();
         });
+
     }
 
     /**

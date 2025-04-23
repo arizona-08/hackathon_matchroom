@@ -2,17 +2,22 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-
+use Illuminate\Database\Eloquent\Model;
 
 class Hotel extends Model
 {
     use HasFactory;
 
     protected $fillable = [
-        'user_id', 'name', 'description', 'address',
-        'latitude', 'longitude', 'type', 'rating_average'
+        'user_id',
+        'name',
+        'description',
+        'address',
+        'latitude',
+        'longitude',
+        'rating_average',
+        'cancellation_policy',
     ];
 
     public function user() {
@@ -23,4 +28,5 @@ class Hotel extends Model
         return $this->hasMany(Room::class);
     }
 }
+
 
