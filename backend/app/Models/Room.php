@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use App\Models\RoomImage;
+use App\Models\Favorite;
 
 
 class Room extends Model
@@ -29,6 +30,11 @@ class Room extends Model
     public function images()
     {
         return $this->hasMany(RoomImage::class);
+    }
+
+    public function favorites()
+    {
+        return $this->hasMany(Favorite::class);
     }
 
 }
