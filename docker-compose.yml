@@ -9,6 +9,8 @@ services:
       - ./frontend/.env
     volumes:
       - ./frontend:/app
+      - /app/node_modules  # Prevent host's node_modules from being mounted
+      - /app/.nuxt         # Same for .nuxt
     networks:
       - app-network
     ports:
