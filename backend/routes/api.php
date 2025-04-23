@@ -1,11 +1,13 @@
 <?php
 
 use Illuminate\Http\Request;
+use Illuminate\Session\Middleware\StartSession;
 use Illuminate\Support\Facades\Route;
+
 
 Route::get('/user', function (Request $request) {
     return $request->user();
-})->middleware('auth:sanctum');
+})->middleware(StartSession::class, 'auth:sanctum');
 
 require __DIR__.'/auth.php';
 require __DIR__.'/hotel.php';
