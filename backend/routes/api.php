@@ -11,3 +11,4 @@ require __DIR__.'/auth.php';
 require __DIR__.'/hotel.php';
 require __DIR__.'/room.php';
 require __DIR__.'/swipe.php';
+require __DIR__.'/negotiation.php';
