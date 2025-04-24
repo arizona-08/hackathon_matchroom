@@ -47,10 +47,11 @@ async function handleSubmit() {
 
         <div class="flex flex-col gap-1 max-w-86">
             <label for="user-type">Type d'utilisateur</label>
-            <select class="border" id="user-type" v-model="credentials.type" required>
+            <select class="border" id="user-type" v-model="credentials.role" required>
                 <option value="" disabled selected>Choisissez un type d'utilisateur</option>
                 <option value="voyageur">Voyageur</option>
                 <option value="hotelier">Hôtelier</option>
+                <option value="admin">admin</option>
             </select>
         </div>
 

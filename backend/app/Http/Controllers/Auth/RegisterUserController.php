@@ -16,16 +16,15 @@ class RegisterUserController extends Controller
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users',
             'password' => 'required|string|min:8|confirmed',
-            'type' => 'required|string|in:voyageur,hotelier'
+            'role' => 'required|string|in:voyageur,hotelier,admin',
         ]);
-
+        
         $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
-            'type' => $request->type,
+            'role' => $request->role,
             'password' => Hash::make($request->password),
         ]);
-
         $user->save();
 
         return response()->json([

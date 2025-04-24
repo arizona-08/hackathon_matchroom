@@ -14,6 +14,10 @@ Route::middleware(StartSession::class)->group(function () {
 
         Route::get('my', [NegotiationController::class, 'myNegotiations']);
         Route::get('room/{roomId}', [NegotiationController::class, 'roomHistory']);
+        Route::get('hotelier/requests', [NegotiationController::class, 'hotelierRequests']);
+        Route::post('{negotiation}/propose-price', [NegotiationController::class, 'proposePrice']);
+
+
     });
 });
 
