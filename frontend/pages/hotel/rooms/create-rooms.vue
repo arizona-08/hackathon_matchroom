@@ -12,16 +12,22 @@ const room = reactive({
     negotiation_max_discount: '',
     negotiation_auto_accept_threshold: '',
     photo_path: '',
-    number_of_beds: ''
+    number_of_beds: '',
     // equipment: '',
     // score_matching: ''
-})
+});
+
+const complementary_imgs = reactive([]);
 
 async function submitRoom(){
     const formData = new FormData();
 
     for (const key in room) {
         formData.append(key, room[key]);
+    }
+
+    for (const file of complementary_imgs) {
+        formData.append('complementary_imgs[]', file);
     }
 
     const response = await createRoom(formData);
@@ -36,6 +42,23 @@ async function submitRoom(){
 
 function handleChange(event){
     room.photo_path = event.target.files[0];
+}
+
+function handleComplementaryImages(event){
+    const files = event.target.files;
+    if (files.length > 3) {
+        alert("Vous ne pouvez pas télécharger plus de 3 images.");
+        return;
+    }
+
+    for (let i = 0; i < files.length; i++) {
+        if (files[i].size > 2 * 1024 * 1024) { // 2MB
+            alert("Chaque image doit faire moins de 2 Mo.");
+            return;
+        } else {
+            complementary_imgs.push(files[i]);
+        }
+    }
 }
 </script>
 
@@ -92,6 +115,15 @@ function handleChange(event){
 
                     <label for="negotiation_max_discount">Seuil de refus automatique</label>
                     <input class="border" type="number" id="negotiation_max_discount" name="negotiation_max_discount" placeholder="Entrez la capacité de la chambre" required v-model="room.negotiation_max_discount">
+                </div>
+
+                <div>
+                    <p>Images complémentaires</p>
+                    <div>
+                        <input type="file" name="complementary_imgs" id="complementary_imgs" @change="handleComplementaryImages" class="border" multiple accept="image/*">
+                        <p class="text-red-500">Maximum 3 images</p>
+                    </div>
+                    
                 </div>
             </div>
         </div>

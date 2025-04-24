@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Room;
+use App\Models\RoomImage;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
@@ -11,7 +12,7 @@ class RoomController extends Controller
     public function index()
     {
         return response()->json([
-            "rooms" => Room::with('hotel')->get()
+            "rooms" => Room::with('hotel', 'images')->get()
         ]);
     }
 
@@ -50,16 +51,30 @@ class RoomController extends Controller
         ]);
 
         $room->save();
+
+        if ($request->hasFile('complementary_imgs')) {
+            foreach ($request->file('complementary_imgs') as $file) {
+                $roomImage = new RoomImage();
+                $roomImage->room_id = $room->id;
+                $roomImage->image_url = $file->store('uploads/rooms/' . $room->id, 'public');
+                $roomImage->save();
+            }
+        }
         return response()->json($room, 201);
     }
 
     public function show(Room $room)
     {
-        $room->load('hotel');
+        $room->load('hotel', 'images');
         return response()->json([
             "room" => $room
         ]);
-        ;
+    }
+
+    public function showSimple(Room $room){
+        return response()->json([
+            "room" => $room
+        ]);
     }
 
     public function update(Request $request, Room $room)
@@ -67,24 +82,13 @@ class RoomController extends Controller
         $user = $request->user();
         $user->load('hotel');
 
-        
-
-        $path = null;
-        if ($request->hasFile('photo_path')) {
-            $request->validate([
-                'photo_path' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
-            ]);
-            $path = $request->file('photo_path')->store('uploads/rooms', 'public');
-            $room->photo_path = $path;
-        }
-
         $hotel_id = $user->hotel->id;
 
         $room->update([
             'hotel_id' => $hotel_id,
             'name' => $request->name,
             'description' => $request->description,
-            'price_per_night' => $request->price,
+            'price_per_night' => $request->price_per_night,
             'capacity' => $request->capacity,
             'available_from' => $request->available_from,
             'available_to' => $request->available_to,
@@ -100,9 +104,38 @@ class RoomController extends Controller
         return response()->json($room, 201);
     }
 
+    public function updateWithPic(Request $request, Room $room){
+        $user = $request->user();
+        $user->load('hotel');
+
+        $path = null;
+        if ($request->hasFile('photo_path')) {
+            $request->validate([
+                'photo_path' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
+            ]);
+
+            //faire en sorte de supprimer l'ancienne image
+
+            $path = $request->file('photo_path')->store('uploads/rooms', 'public');
+            $room->photo_path = $path;
+            $room->save();
+            return response()->json($room, 201);
+        } else {
+            return response()->json([
+                'error' => 'No file uploaded',
+                'request' => $request->all()
+            ], 400);
+        }
+    }
+
     public function destroy(Room $room)
     {
-        $room->delete();
-        return response()->json(null, 204);
+        if($room){
+            $room->delete();
+            return response()->json([
+                'message' => 'Chambre supprimée avec succès'
+            ], 204);
+        }
+        
     }
 }

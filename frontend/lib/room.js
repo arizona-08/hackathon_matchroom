@@ -18,10 +18,10 @@ export async function createRoom(formData){
 export async function updateRoomWithPic(formData, room_id){
 
     try {
-        const response = await api.put(`/api/rooms/${room_id}`, formData, {
+        const response = await api.post(`/api/rooms-pic/${room_id}`, formData, {
             headers: {
                 "X-XSRF-TOKEN": getLaravelCookie('XSRF-TOKEN'),
-                'Content-Type': 'multipart/form-data',
+                // 'Content-Type': 'multipart/form-data',
             }
         })
         return response
@@ -60,6 +60,30 @@ export async function getRoom(id){
         return response
     } catch (error) {
         console.error('[GET ROOM ERROR]', error)
+        throw error
+    }
+}
+
+export async function getRoomSimple(id){
+    try {
+        const response = await api.get(`/api/rooms-simple/${id}`)
+        return response
+    } catch (error) {
+        console.error('[GET ROOM ERROR]', error)
+        throw error
+    }
+}
+
+export async function deleteRoom(id){
+    try {
+        const response = await api.delete(`/api/rooms/${id}`, {
+            headers: {
+                "X-XSRF-TOKEN": getLaravelCookie('XSRF-TOKEN'),
+            }
+        })
+        return response
+    } catch (error) {
+        console.error('[DELETE ROOM ERROR]', error)
         throw error
     }
 }
