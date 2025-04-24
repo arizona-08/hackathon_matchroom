@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Hotel;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 
 class HotelController extends Controller
@@ -11,8 +12,29 @@ class HotelController extends Controller
         return Hotel::with('rooms')->get();
     }
 
-    public function store(Request $request) {
-        $hotel = Hotel::create($request->all());
+    public function store(Request $request)
+    {
+        $validated = $request->validate([
+            'name' => 'required|string|max:255',
+            'description' => 'nullable|string',
+            'address' => 'required|string|max:255',
+            'latitude' => 'nullable|numeric',
+            'longitude' => 'nullable|numeric',
+            'rating_average' => 'nullable|numeric',
+            'cancellation_policy' => 'nullable|string',
+        ]);
+
+        $user = Auth::user();
+
+        if (!$user) {
+            return response()->json(['error' => 'Unauthorized'], 401);
+        }
+
+        $hotel = Hotel::create([
+            ...$validated,
+            'user_id' => $user->id,
+        ]);
+
         return response()->json($hotel, 201);
     }
 
