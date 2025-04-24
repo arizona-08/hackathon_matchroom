@@ -59,6 +59,8 @@ services:
     user: 1000:1000
     volumes:
       - ./backend:/var/www/html
+    depends_on:
+      - mariadb
     env_file:
       - ./backend/.env
     networks:
