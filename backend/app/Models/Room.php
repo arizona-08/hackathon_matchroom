@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use App\Models\RoomImage;
 use App\Models\Favorite;
+use App\Models\RoomEquipment;
 
 
 class Room extends Model
@@ -36,6 +37,12 @@ class Room extends Model
     {
         return $this->hasMany(Favorite::class);
     }
+
+    public function equipment()
+    {
+        return $this->hasOne(RoomEquipment::class);
+    }
+
 
 }
 

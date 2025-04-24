@@ -17,3 +17,4 @@ require __DIR__.'/negotiation.php';
 require __DIR__.'/favoris.php';
 require __DIR__.'/map.php';
 require __DIR__.'/file_upload.php';
+require __DIR__.'/search.php';
