@@ -12,9 +12,18 @@ class RoomImage extends Model
 
     protected $fillable = ['room_id', 'image_url'];
 
+    protected $appends = ['photo_url'];
+
     public function room()
     {
         return $this->belongsTo(Room::class);
+    }
+
+    public function getPhotoUrlAttribute()
+    {
+        return $this->image_url
+            ? asset('storage/' . $this->image_url)
+            : null;
     }
 }
 

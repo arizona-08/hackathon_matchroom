@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Room;
+use App\Models\RoomImage;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
@@ -11,7 +12,7 @@ class RoomController extends Controller
     public function index()
     {
         return response()->json([
-            "rooms" => Room::with('hotel')->get()
+            "rooms" => Room::with('hotel', 'images')->get()
         ]);
     }
 
@@ -50,12 +51,21 @@ class RoomController extends Controller
         ]);
 
         $room->save();
+
+        if ($request->hasFile('complementary_imgs')) {
+            foreach ($request->file('complementary_imgs') as $file) {
+                $roomImage = new RoomImage();
+                $roomImage->room_id = $room->id;
+                $roomImage->image_url = $file->store('uploads/rooms/' . $room->id, 'public');
+                $roomImage->save();
+            }
+        }
         return response()->json($room, 201);
     }
 
     public function show(Room $room)
     {
-        $room->load('hotel');
+        $room->load('hotel', 'images');
         return response()->json([
             "room" => $room
         ]);

@@ -29,8 +29,14 @@ onMounted(() => {
 <div>
     <h3>{{ room.name }}</h3>
     <p>{{ room.description }}</p>
-    <div class="w-16 h-16">
+    <div>
         <img :src="room.photo_url" alt="" class="rounded-full w-32 h-32 object-cover">
     </div>
+    <div>
+        <p>Images: complémentaires:</p>
+        <div class="flex gap-2">
+            <img v-for="(image, index) in room.images" :key="index" :src="image.photo_url" alt="" class="rounded-full w-32 h-32 object-cover">
+        </div>
+      </div>
 </div>
 </template>
