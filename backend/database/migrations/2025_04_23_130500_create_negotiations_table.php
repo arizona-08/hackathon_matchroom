@@ -16,7 +16,7 @@ return new class extends Migration
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
             $table->foreignId('room_id')->constrained()->onDelete('cascade');
             $table->decimal('initial_price', 8, 2);
-            $table->decimal('proposed_price', 8, 2);
+            $table->decimal('proposed_price', 8, 2)->nullable();
             $table->enum('status', ['proposed', 'accepted', 'refused', 'countered'])->default('proposed');
             $table->timestamps();
         });

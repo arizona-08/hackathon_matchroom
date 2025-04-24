@@ -8,12 +8,20 @@
   
       <div v-else class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
         <div v-for="room in rooms" :key="room.id" class="bg-white p-4 rounded shadow">
-          <h3 class="text-lg font-semibold mb-2">{{ room.name }}</h3>
-          <p class="text-sm text-gray-600 mb-1">Capacité : {{ room.capacity }} personnes</p>
-          <p class="text-sm text-gray-600 mb-1">Prix : {{ room.price_per_night }} € / nuit</p>
-          <p class="text-sm text-gray-600">Hotel : {{ room.hotel?.name || 'Non spécifié' }}</p>
+            <h3 class="text-lg font-semibold mb-2">{{ room.name }}</h3>
+            <p class="text-sm text-gray-600 mb-1">Capacité : {{ room.capacity }} personnes</p>
+            <p class="text-sm text-gray-600 mb-1">Prix : {{ room.price_per_night }} € / nuit</p>
+            <p class="text-sm text-gray-600 mb-4">Hôtel : {{ room.hotel?.name || 'Non spécifié' }}</p>
+
+            <NuxtLink
+            :to="`/negociation?room_id=${room.id}`"
+            class="inline-block bg-green-700 text-white px-4 py-2 rounded hover:bg-green-800 text-sm"
+            >
+            Négocier
+            </NuxtLink>
+
         </div>
-      </div>
+        </div>
     </div>
   </template>
   
