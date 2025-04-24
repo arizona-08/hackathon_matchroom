@@ -14,8 +14,9 @@ class Room extends Model
     use HasFactory;
 
     protected $fillable = [
-        'hotel_id', 'name', 'type', 'capacity', 'price_per_night',
-        'available_from', 'available_to', 'equipment', 'score_matching'
+        'hotel_id', 'name','capacity', 'price_per_night',
+        'available_from', 'available_to', 'equipment', 'score_matching', 'negotiation_max_discount',
+        'negotiation_auto_accept_threshold'
     ];
 
     protected $casts = [

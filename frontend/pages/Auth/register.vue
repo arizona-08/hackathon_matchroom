@@ -1,5 +1,6 @@
 <script setup>
 
+
 import { register } from '~/lib/auth';
 const credentials = reactive({
     name: '',
@@ -10,13 +11,15 @@ const credentials = reactive({
     password_confirmation: ''
 });
 
+const router = useRouter();
+
 async function handleSubmit() {
-    
 
     const response = await register(credentials);
     if (response.status === 201) {
         // Handle successful registration
         console.log('Registration successful');
+        router.push('/login');
     } else {
         // Handle error
         console.error('Registration failed', response);
