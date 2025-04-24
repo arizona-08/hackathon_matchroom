@@ -11,4 +11,6 @@ Route::post('/register', [RegisterUserController::class, 'store']);
 Route::middleware(StartSession::class)->group(function () {
     Route::post('/login', [AuthenticationController::class, 'store']);
     Route::post('/logout', [AuthenticationController::class, 'destroy'])->middleware('auth:sanctum');
+    Route::get('/users', fn () => \App\Models\User::select('id', 'name', 'email')->get());
+
 });

@@ -1,25 +1,5 @@
 import { api } from './api'
-import { getCookie } from './api'
-
-// export async function createHotel(hotelData) {
-//     try {
-//         // Ajouter le user_id à l'objet hotelData
-//         const payload = {
-//             ...hotelData,
-//             user_id: 1 // user_id temporaire en attendant le login
-//         }
-
-//         const response = await api.post('/api/hotels', payload, {
-//             headers: {
-//                 "X-XSRF-TOKEN": getCookie('XSRF-TOKEN')
-//             }
-//         })
-//         return response.data
-//     } catch (error) {
-//         console.error('[CREATE HOTEL ERROR]', error)
-//         throw error.response?.data || error
-//     }
-// }
+import { getLaravelCookie } from './api'
 
 export async function createHotel(payload) {
     try {
@@ -56,7 +36,7 @@ export async function updateHotel(id, hotelData) {
     try {
         const response = await api.put(`/api/hotels/${id}`, hotelData, {
             headers: {
-                "X-XSRF-TOKEN": getCookie('XSRF-TOKEN')
+                "X-XSRF-TOKEN": getLaravelCookie('XSRF-TOKEN')
             }
         })
         return response.data
@@ -70,7 +50,7 @@ export async function deleteHotel(id) {
     try {
         const response = await api.delete(`/api/hotels/${id}`, {
             headers: {
-                "X-XSRF-TOKEN": getCookie('XSRF-TOKEN')
+                "X-XSRF-TOKEN": getLaravelCookie('XSRF-TOKEN')
             }
         })
         return response.data
@@ -79,3 +59,14 @@ export async function deleteHotel(id) {
         throw error.response?.data || error
     }
 }
+
+export async function generateHotelKeyForUser(userId) {
+    try {
+      const response = await api.post('/api/generate-hotel-key', { user_id: userId });
+      return response.data;
+    } catch (error) {
+      console.error('[GENERATE HOTEL KEY ERROR]', error);
+      throw error.response?.data || error;
+    }
+  }
+  
