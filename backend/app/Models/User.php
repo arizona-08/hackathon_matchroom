@@ -17,15 +17,15 @@ class User extends Authenticatable
         'firstname',
         'email',
         'password',
-        'type',
+        'role',
         'photo_path',
-        'hotel_access_key', // ✅ ajouté ici
+        'hotel_access_key',
     ];
 
     protected $hidden = [
         'password',
         'remember_token',
-        'hotel_access_key', // ✅ caché dans les réponses
+        'hotel_access_key',
     ];
 
     protected function casts(): array
@@ -44,6 +44,21 @@ class User extends Authenticatable
 
     public function hotel(){
         return $this->hasOne(Hotel::class);
+    }
+
+    public function isAdmin()
+    {
+        return $this->role === 'admin';
+    }
+
+    public function isHotelier()
+    {
+        return $this->role === 'hotelier';
+    }
+
+    public function isClient()
+    {
+        return $this->role === 'client';
     }
 
 }

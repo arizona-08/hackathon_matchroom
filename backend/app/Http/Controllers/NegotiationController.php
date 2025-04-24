@@ -27,14 +27,15 @@ class NegotiationController extends Controller
 
     public function roomHistory($roomId)
     {
-        $negotiations = Negotiation::with('room.hotel')
-            ->where('user_id', auth()->id())
+        $negotiations = Negotiation::with(['room.hotel', 'user'])
             ->where('room_id', $roomId)
             ->orderBy('created_at')
             ->get();
 
         return response()->json($negotiations);
     }
+
+
 
     public function store(Request $request)
     {
@@ -79,6 +80,7 @@ class NegotiationController extends Controller
     {
         $request->validate([
             'proposed_price' => 'required|numeric|min:1',
+            'user_id' => 'required|exists:users,id',
         ]);
 
         $room = $negotiation->room;
@@ -92,11 +94,13 @@ class NegotiationController extends Controller
         } elseif ($discount <= $room->negotiation_auto_accept_threshold) {
             $status = 'accepted';
         } else {
-            $status = 'proposed';
+            $isHotelierResponding = $request->user_id !== $negotiation->user_id;
+            $status = $isHotelierResponding ? 'countered' : 'proposed';
         }
 
         $negotiation->proposed_price = $proposed;
         $negotiation->status = $status;
+        $negotiation->user_id = $request->user_id;
         $negotiation->save();
 
         return response()->json([
@@ -104,6 +108,7 @@ class NegotiationController extends Controller
             'negotiation' => $negotiation
         ]);
     }
+
 
     public function accept(Negotiation $negotiation)
     {
@@ -161,4 +166,30 @@ class NegotiationController extends Controller
 
         return response()->json($negotiations);
     }
+
+    public function hotelierRequests()
+    {
+        $user = auth()->user();
+
+        if (!$user || $user->role !== 'hotelier') {
+            return response()->json(['message' => 'Unauthorized'], 403);
+        }
+
+        $hotel = $user->hotel;
+
+        if (!$hotel) {
+            return response()->json(['message' => 'Aucun hôtel lié à cet utilisateur.'], 404);
+        }
+
+        // Récupère les négos pour les chambres de cet hôtel
+        $negotiations = Negotiation::with(['room.hotel', 'user'])
+            ->whereHas('room', function ($query) use ($hotel) {
+                $query->where('hotel_id', $hotel->id);
+            })
+            ->orderBy('created_at', 'desc')
+            ->get();
+
+        return response()->json($negotiations);
+    }
+
 }
