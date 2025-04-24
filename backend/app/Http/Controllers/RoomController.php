@@ -64,8 +64,40 @@ class RoomController extends Controller
 
     public function update(Request $request, Room $room)
     {
-        $room->update($request->all());
-        return $room;
+        $user = $request->user();
+        $user->load('hotel');
+
+        
+
+        $path = null;
+        if ($request->hasFile('photo_path')) {
+            $request->validate([
+                'photo_path' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
+            ]);
+            $path = $request->file('photo_path')->store('uploads/rooms', 'public');
+            $room->photo_path = $path;
+        }
+
+        $hotel_id = $user->hotel->id;
+
+        $room->update([
+            'hotel_id' => $hotel_id,
+            'name' => $request->name,
+            'description' => $request->description,
+            'price_per_night' => $request->price,
+            'capacity' => $request->capacity,
+            'available_from' => $request->available_from,
+            'available_to' => $request->available_to,
+            'equipment' => $request->equipment,
+            'score_matching' => $request->score_matching,
+            'number_of_beds' => $request->number_of_beds,
+            'negotiation_max_discount' => $request->negotiation_max_discount,
+            'negotiation_auto_accept_threshold' => $request->negotiation_auto_accept_threshold,
+        ]);
+
+        $room->save();
+
+        return response()->json($room, 201);
     }
 
     public function destroy(Room $room)

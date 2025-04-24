@@ -15,6 +15,35 @@ export async function createRoom(formData){
     }
 }
 
+export async function updateRoomWithPic(formData, room_id){
+
+    try {
+        const response = await api.put(`/api/rooms/${room_id}`, formData, {
+            headers: {
+                "X-XSRF-TOKEN": getLaravelCookie('XSRF-TOKEN'),
+                'Content-Type': 'multipart/form-data',
+            }
+        })
+        return response
+    } catch (error){
+        console.error(error.response);
+    }
+}
+
+export async function updateRoom(data, room_id){
+
+    try {
+        const response = await api.put(`/api/rooms/${room_id}`, data, {
+            headers: {
+                "X-XSRF-TOKEN": getLaravelCookie('XSRF-TOKEN'),
+            }
+        })
+        return response
+    } catch (error){
+        console.error(error.response);
+    }
+}
+
 export async function getAllRooms(){
     try {
         const response = await api.get('/api/rooms')
