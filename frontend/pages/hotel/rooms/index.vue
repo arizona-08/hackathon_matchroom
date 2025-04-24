@@ -25,6 +25,6 @@ onMounted(() => {
       <!-- Render your room here -->
       <h3>{{ room.name }}</h3>
       <p>{{ room.description }}</p>
-      <img :src=room.photo_url alt="">
+      <img :src="room.photo_url" alt="" class="rounded-full w-32 h-32 object-cover">
     </div>
 </template>

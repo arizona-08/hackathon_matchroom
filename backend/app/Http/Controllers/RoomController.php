@@ -103,6 +103,9 @@ class RoomController extends Controller
             $request->validate([
                 'photo_path' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
             ]);
+
+            //faire en sorte de supprimer l'ancienne image
+
             $path = $request->file('photo_path')->store('uploads/rooms', 'public');
             $room->photo_path = $path;
             $room->save();
@@ -113,13 +116,16 @@ class RoomController extends Controller
                 'request' => $request->all()
             ], 400);
         }
-
-        
     }
 
     public function destroy(Room $room)
     {
-        $room->delete();
-        return response()->json(null, 204);
+        if($room){
+            $room->delete();
+            return response()->json([
+                'message' => 'Chambre supprimée avec succès'
+            ], 204);
+        }
+        
     }
 }

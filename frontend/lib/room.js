@@ -73,3 +73,17 @@ export async function getRoomSimple(id){
         throw error
     }
 }
+
+export async function deleteRoom(id){
+    try {
+        const response = await api.delete(`/api/rooms/${id}`, {
+            headers: {
+                "X-XSRF-TOKEN": getLaravelCookie('XSRF-TOKEN'),
+            }
+        })
+        return response
+    } catch (error) {
+        console.error('[DELETE ROOM ERROR]', error)
+        throw error
+    }
+}

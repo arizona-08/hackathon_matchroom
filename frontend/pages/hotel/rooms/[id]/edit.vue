@@ -1,6 +1,6 @@
 <script setup>
 import { reactive } from 'vue';
-import { updateRoomWithPic, getRoom, updateRoom, getRoomSimple } from '~/lib/room';
+import { updateRoomWithPic, getRoom, updateRoom, getRoomSimple, deleteRoom } from '~/lib/room';
 const room = reactive({
     name: '',
     description: '',
@@ -17,6 +17,8 @@ const room = reactive({
     // score_matching: ''
 })
 
+const router = useRouter();
+
 async function handlePicSubmit(){
     const formData = new FormData();
 
@@ -24,7 +26,7 @@ async function handlePicSubmit(){
         formData.append(key, room[key]);
     }
     formData.append('_method', 'PUT');
-    
+
     const response = await updateRoomWithPic(formData, room_id);
     console.log(response);
     if(response.status === 201){
@@ -43,6 +45,16 @@ async function submitRoom(){
         // Redirection ou autre action après la création
     } else {
         console.error("Erreur lors de la modification de la chambre", response);
+    }
+}
+
+async function handleDelete(){
+    const response = await deleteRoom(room_id);
+    if(response.status === 204){
+        console.log("Chambre supprimée avec succès", response.data);
+        router.push('/hotel/rooms');
+    } else {
+        console.error("Erreur lors de la suppression de la chambre", response);
     }
 }
 
@@ -148,4 +160,6 @@ onMounted(() => {
         </div>
         <button type="submit" class="bg-blue-500 px-2 py-1">modifier</button>
     </form>
+
+    <button class="bg-red-500 px-2 py-1 mt-2" @click="handleDelete">Supprimer cette chambre</button>
 </template>
