@@ -7,8 +7,8 @@ ENV=${1:-dev}
 case $ENV in
   dev|development)
     echo "🚀 Starting development environment..."
-    docker-compose -f docker-compose.dev.yml down
-    docker-compose -f docker-compose.dev.yml up -d
+    docker-compose down
+    docker-compose up --build -d
     echo "✅ Development environment started!"
     echo "📊 Frontend: http://localhost:3000"
     echo "⚙️ Backend API: http://localhost:8000"

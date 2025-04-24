@@ -1,34 +1,4 @@
-version: '3.9'
-
 services:
-  traefik:
-    image: traefik:v3.0
-    container_name: traefik
-    restart: unless-stopped
-    command:
-      - --entrypoints.web.address=:80
-      - --entrypoints.websecure.address=:443
-      - --providers.docker=true
-      - --providers.docker.exposedbydefault=false
-      - --certificatesresolvers.myresolver.acme.tlschallenge=true
-      - --certificatesresolvers.myresolver.acme.email=tperrouas@myges.fr
-      - --certificatesresolvers.myresolver.acme.storage=/letsencrypt/acme.json
-      - --api.dashboard=true
-    ports:
-      - "80:80"
-      - "443:443"
-    volumes:
-      - /var/run/docker.sock:/var/run/docker.sock
-      - ./letsencrypt:/letsencrypt
-    networks:
-      - app-network
-    labels:
-      - "traefik.enable=true"
-      - "traefik.http.routers.traefik.rule=Host(`traefik.matchroom.online`)"
-      - "traefik.http.routers.traefik.entrypoints=websecure"
-      - "traefik.http.routers.traefik.service=api@internal"
-      - "traefik.http.routers.traefik.tls.certresolver=myresolver"
-
   frontend:
     build:
       context: ./frontend
@@ -39,39 +9,31 @@ services:
       - ./frontend/.env
     volumes:
       - ./frontend:/app
-      - /app/node_modules
-      - /app/.nuxt
+      - /app/node_modules  # Prevent host's node_modules from being mounted
+      - /app/.nuxt         # Same for .nuxt
     networks:
       - app-network
-    labels:
-      - "traefik.enable=true"
-      - "traefik.http.routers.frontend.rule=Host(`matchroom.online`)"
-      - "traefik.http.routers.frontend.entrypoints=websecure"
-      - "traefik.http.routers.frontend.tls.certresolver=myresolver"
-      - "traefik.http.services.frontend.loadbalancer.server.port=3000"
-
+    ports:
+      - "3000:3000"
+    depends_on:
+      - backend
   backend:
     build:
       context: ./backend
       dockerfile: dockerfile
+    user: 1000:1000
     container_name: backend
     restart: unless-stopped
-    user: 1000:1000
     volumes:
       - ./backend:/var/www/html
+    networks:
+      - app-network
     depends_on:
       - mariadb
     env_file:
       - ./backend/.env
-    networks:
-      - app-network
-    labels:
-      - "traefik.enable=true"
-      - "traefik.http.routers.backend.rule=Host(`api.matchroom.online`)"
-      - "traefik.http.routers.backend.entrypoints=websecure"
-      - "traefik.http.routers.backend.tls.certresolver=myresolver"
-      - "traefik.http.services.backend.loadbalancer.server.port=8000"
-
+    ports:
+      - "8000:8000"
   mariadb:
     image: mariadb:latest
     container_name: mariadb
@@ -89,8 +51,8 @@ services:
 
 volumes:
   data:
-  letsencrypt:
 
 networks:
   app-network:
     driver: bridge
+  

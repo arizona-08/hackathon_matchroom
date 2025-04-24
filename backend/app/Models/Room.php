@@ -14,8 +14,9 @@ class Room extends Model
     use HasFactory;
 
     protected $fillable = [
-        'hotel_id', 'name', 'type', 'capacity', 'price_per_night',
-        'available_from', 'available_to', 'equipment', 'score_matching'
+        'hotel_id', 'name','capacity', 'price_per_night',
+        'available_from', 'available_to', 'equipment', 'score_matching', 'negotiation_max_discount',
+        'negotiation_auto_accept_threshold', 'photo_path', 'number_of_beds'
     ];
 
     protected $casts = [
@@ -23,6 +24,8 @@ class Room extends Model
         'available_from' => 'date',
         'available_to' => 'date'
     ];
+
+    protected $appends = ['photo_url'];
 
     public function hotel() {
         return $this->belongsTo(Hotel::class);
@@ -43,6 +46,11 @@ class Room extends Model
         return $this->hasOne(RoomEquipment::class);
     }
 
-
+    public function getPhotoUrlAttribute()
+    {
+        return $this->photo_path
+            ? asset('storage/' . $this->photo_path)
+            : null;
+    }
 }
 

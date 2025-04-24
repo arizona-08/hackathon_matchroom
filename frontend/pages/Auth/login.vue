@@ -7,11 +7,13 @@ const credentials = reactive({
     password: ''
 });
 
+const router = useRouter();
 async function handleSubmit() {
     const response = await login(credentials);
     if (response.status === 200) {
         // Handle successful login
         console.log('login successful');
+        router.push('/');
     } else {
         // Handle error
         console.error('login failed', response);
