@@ -1,6 +1,6 @@
 <script setup>
 import { reactive } from 'vue';
-import { updateRoomWithPic, getRoom, updateRoom } from '~/lib/room';
+import { updateRoomWithPic, getRoom, updateRoom, getRoomSimple } from '~/lib/room';
 const room = reactive({
     name: '',
     description: '',
@@ -23,6 +23,8 @@ async function handlePicSubmit(){
     for (const key in room) {
         formData.append(key, room[key]);
     }
+    formData.append('_method', 'PUT');
+    
     const response = await updateRoomWithPic(formData, room_id);
     console.log(response);
     if(response.status === 201){
@@ -58,7 +60,7 @@ function formatDate(dateStr) {
 }
 
 async function fetchRoom(){
-    const response = await getRoom(room_id);
+    const response = await getRoomSimple(room_id);
     if(response.status === 200){
         const data = response.data.room;
         Object.assign(room,{
@@ -139,9 +141,9 @@ onMounted(() => {
     </form>
 
 
-    <form @submit.preview="handlePicSubmit">
+    <form @submit.prevent="handlePicSubmit" method="post">
         <div class="flex flex-col gap-1 max-w-86">
-            <label for="room_photo">Choisir une image</label>
+            <label for="photo_path">Choisir une image</label>
             <input @change="handleChange" type="file" name="photo_path" id="photo_path">
         </div>
         <button type="submit" class="bg-blue-500 px-2 py-1">modifier</button>

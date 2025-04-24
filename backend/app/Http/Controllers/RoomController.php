@@ -59,7 +59,12 @@ class RoomController extends Controller
         return response()->json([
             "room" => $room
         ]);
-        ;
+    }
+
+    public function showSimple(Room $room){
+        return response()->json([
+            "room" => $room
+        ]);
     }
 
     public function update(Request $request, Room $room)
@@ -100,28 +105,16 @@ class RoomController extends Controller
             ]);
             $path = $request->file('photo_path')->store('uploads/rooms', 'public');
             $room->photo_path = $path;
+            $room->save();
+            return response()->json($room, 201);
+        } else {
+            return response()->json([
+                'error' => 'No file uploaded',
+                'request' => $request->all()
+            ], 400);
         }
 
-        $hotel_id = $user->hotel->id;
-
-        $room->update([
-            'hotel_id' => $hotel_id,
-            'name' => $request->name,
-            'description' => $request->description,
-            'price_per_night' => $request->price,
-            'capacity' => $request->capacity,
-            'available_from' => $request->available_from,
-            'available_to' => $request->available_to,
-            'equipment' => $request->equipment,
-            'score_matching' => $request->score_matching,
-            'number_of_beds' => $request->number_of_beds,
-            'negotiation_max_discount' => $request->negotiation_max_discount,
-            'negotiation_auto_accept_threshold' => $request->negotiation_auto_accept_threshold,
-        ]);
-
-        $room->save();
-
-        return response()->json($room, 201);
+        
     }
 
     public function destroy(Room $room)
