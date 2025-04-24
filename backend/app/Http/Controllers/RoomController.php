@@ -4,13 +4,17 @@ namespace App\Http\Controllers;
 
 use App\Models\Room;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class RoomController extends Controller
 {
     public function index()
     {
-        return Room::with('hotel')->get();
+        return response()->json([
+            "rooms" => Room::with('hotel')->get()
+        ]);
     }
+
 
     public function store(Request $request)
     {
@@ -18,9 +22,16 @@ class RoomController extends Controller
         $user = $request->user();
         $user->load('hotel');
 
+        $request->validate([
+            'photo_path' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
+        ]);
+
+        $path = null;
+        if ($request->hasFile('photo_path')) {
+            $path = $request->file('photo_path')->store('uploads/rooms', 'public');
+        }
+
         $hotel_id = $user->hotel->id;
-
-
 
         $room = Room::create([
             'hotel_id' => $hotel_id,
@@ -32,6 +43,10 @@ class RoomController extends Controller
             'available_to' => $request->available_to,
             'equipment' => $request->equipment,
             'score_matching' => $request->score_matching,
+            'photo_path' => $path,
+            'number_of_beds' => $request->number_of_beds,
+            'negotiation_max_discount' => $request->negotiation_max_discount,
+            'negotiation_auto_accept_threshold' => $request->negotiation_auto_accept_threshold,
         ]);
 
         $room->save();

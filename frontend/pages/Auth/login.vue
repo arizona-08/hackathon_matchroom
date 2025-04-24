@@ -13,7 +13,7 @@ async function handleSubmit() {
     if (response.status === 200) {
         // Handle successful login
         console.log('login successful');
-        router.push('/profil');
+        router.push('/');
     } else {
         // Handle error
         console.error('login failed', response);

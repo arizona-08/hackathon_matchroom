@@ -19,7 +19,7 @@ async function handleSubmit() {
     if (response.status === 201) {
         // Handle successful registration
         console.log('Registration successful');
-        router.push('/login');
+        router.push('/auth/login');
     } else {
         // Handle error
         console.error('Registration failed', response);
