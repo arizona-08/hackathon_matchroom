@@ -5,6 +5,7 @@ const credentials = reactive({
     name: '',
     firstname: '',
     email: '',
+    type: '',
     password: '',
     password_confirmation: ''
 });
@@ -13,7 +14,7 @@ async function handleSubmit() {
     
 
     const response = await register(credentials);
-    if (response.status === 200) {
+    if (response.status === 201) {
         // Handle successful registration
         console.log('Registration successful');
     } else {
@@ -42,13 +43,22 @@ async function handleSubmit() {
         </div>
 
         <div class="flex flex-col gap-1 max-w-86">
+            <label for="user-type">Type d'utilisateur</label>
+            <select class="border" id="user-type" v-model="credentials.type" required>
+                <option value="" disabled selected>Choisissez un type d'utilisateur</option>
+                <option value="voyageur">Voyageur</option>
+                <option value="hotelier">Hôtelier</option>
+            </select>
+        </div>
+
+        <div class="flex flex-col gap-1 max-w-86">
             <label for="password">Mot de passe</label>
             <input class="border" type="password" id="password" name="password" placeholder="Entrez votre password" required v-model="credentials.password">
         </div>
 
         <div class="flex flex-col gap-1 max-w-86">
             <label for="confirmation_password">Confimation du mot de passe</label>
-            <input class="border" type="password" id="nom" name="nom" placeholder="Entrez votre nom" required v-model="credentials.password_confirmation">
+            <input class="border" type="password" id="confirmation_password" name="confirmation_password" placeholder="Confirmer mot de passe" required v-model="credentials.password_confirmation">
         </div>
 
         <button type="submit" class="bg-blue-500 px-2 py-1">Confirmer</button>

@@ -6,7 +6,7 @@ export const api = axios.create({
     withCredentials: true,
 })
 
-export function getCookie(name){
+export function getLaravelCookie(name){
     const value = `; ${document.cookie}`;
     const parts = value.split(`; ${name}=`);
     if (parts.length === 2) {
