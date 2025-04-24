@@ -57,7 +57,6 @@ import { getProfilePic, uploadPic } from '~/lib/file';
         const response = await getProfilePic();
         if(response.status === 200){
             profilePic.value = response.data;
-            console.log(profilePic.value);
         } else {
             console.error("Failed to fetch profile picture", response);
         }
@@ -81,7 +80,7 @@ import { getProfilePic, uploadPic } from '~/lib/file';
     <div>
     <img
       v-if="profilePic"
-      :src="profilePic"
+      :src="profilePic.url"
       alt="Profile Picture"
       class="rounded-full w-32 h-32 object-cover"
     />
