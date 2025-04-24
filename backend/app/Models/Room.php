@@ -25,6 +25,8 @@ class Room extends Model
         'available_to' => 'date'
     ];
 
+    protected $appends = ['photo_url'];
+
     public function hotel() {
         return $this->belongsTo(Hotel::class);
     }
@@ -44,6 +46,11 @@ class Room extends Model
         return $this->hasOne(RoomEquipment::class);
     }
 
-
+    public function getPhotoUrlAttribute()
+    {
+        return $this->photo_path
+            ? asset('storage/' . $this->photo_path)
+            : null;
+    }
 }
 

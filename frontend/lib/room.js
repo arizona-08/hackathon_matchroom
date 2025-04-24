@@ -14,3 +14,23 @@ export async function createRoom(formData){
         console.error(error.response);
     }
 }
+
+export async function getAllRooms(){
+    try {
+        const response = await api.get('/api/rooms')
+        return response
+    } catch (error) {
+        console.error('[GET ROOMS ERROR]', error)
+        throw error
+    }
+}
+
+export async function getRoom(id){
+    try {
+        const response = await api.get(`/api/rooms/${id}`)
+        return response
+    } catch (error) {
+        console.error('[GET ROOM ERROR]', error)
+        throw error
+    }
+}
