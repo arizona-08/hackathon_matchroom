@@ -67,7 +67,31 @@ class RoomController extends Controller
         $user = $request->user();
         $user->load('hotel');
 
-        
+        $hotel_id = $user->hotel->id;
+
+        $room->update([
+            'hotel_id' => $hotel_id,
+            'name' => $request->name,
+            'description' => $request->description,
+            'price_per_night' => $request->price_per_night,
+            'capacity' => $request->capacity,
+            'available_from' => $request->available_from,
+            'available_to' => $request->available_to,
+            'equipment' => $request->equipment,
+            'score_matching' => $request->score_matching,
+            'number_of_beds' => $request->number_of_beds,
+            'negotiation_max_discount' => $request->negotiation_max_discount,
+            'negotiation_auto_accept_threshold' => $request->negotiation_auto_accept_threshold,
+        ]);
+
+        $room->save();
+
+        return response()->json($room, 201);
+    }
+
+    public function updateWithPic(Request $request, Room $room){
+        $user = $request->user();
+        $user->load('hotel');
 
         $path = null;
         if ($request->hasFile('photo_path')) {
