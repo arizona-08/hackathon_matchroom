@@ -1,5 +1,25 @@
 <script setup>
+import { getAllRooms } from '~/lib/room';
 import PopularCarousel from './Carousel/PopularCarousel.vue';
+
+const allRooms = ref([]);
+
+async function fetchRooms(){
+    const response = await getAllRooms();
+    if (response.status === 200) {
+        allRooms.value = response.data.rooms;
+        console.log(allRooms.value);
+        console.log(hasRooms.value);
+    } else {
+        console.error('Error fetching rooms:', response);
+    }
+}
+
+const hasRooms = computed(() => allRooms.value.length > 0);
+
+onMounted(async () => {
+    await fetchRooms();
+})
 </script>
 
 <template>
@@ -14,47 +34,29 @@ import PopularCarousel from './Carousel/PopularCarousel.vue';
                 :scale="focusedIndex === index"
             /> -->
 
-            <CarouselItem 
-                :item="{
-                    img: '/img/pngs_jpgs/chambre_hotel.png',
-                    title: 'Hotel Matchroom',
-                    address: '12 rue du Soleil',
-                    city: 'Paris',
-                    price: 180,
-                    stars: 5,
-                    capaxcity: 4,
-                    tags: ['Wi-Fi', 'Piscine', 'Climatisation']
-                }"
-                :scale="focusedIndex === 0"
-            />
+            <template v-if="hasRooms">
+                <CarouselItem
+                    v-for="(room, index) in allRooms"
+                    :key="index"
+                    :item="{
+                        img: room.photo_url,
+                        title: room.hotel.name,
+                        address: room.address,
+                        city: room.city,
+                        price: room.price_per_night,
+                        stars: room.stars,
+                        capaxcity: room.capaxcity,
+                        tags: room.equipement,
+                        link: '/hotel/rooms/' + room.id
+                        }"
+                    :scale="focusedIndex === index"
+                />
+            </template>
+            <template v-else>
+                <p class="text-center text-gray-500">Aucun résultat trouvé.</p>
+            </template>
 
-            <CarouselItem 
-                :item="{
-                    img: '/img/pngs_jpgs/chambre_hotel.png',
-                    title: 'Hotel Matchroom',
-                    address: '12 rue du Soleil',
-                    city: 'Paris',
-                    price: 180,
-                    stars: 5,
-                    capaxcity: 4,
-                    tags: ['Wi-Fi', 'Piscine', 'Climatisation']
-                }"
-                :scale="focusedIndex === 1"
-            />
-
-            <CarouselItem 
-                :item="{
-                    img: '/img/pngs_jpgs/chambre_hotel.png',
-                    title: 'Hotel Matchroom',
-                    address: '12 rue du Soleil',
-                    city: 'Paris',
-                    price: 180,
-                    stars: 5,
-                    capaxcity: 4,
-                    tags: ['Wi-Fi', 'Piscine', 'Climatisation']
-                }"
-                :scale="focusedIndex === 2"
-            />
+            
         </PopularCarousel>
     </section>
     
