@@ -5,3 +5,15 @@
     --color-primary: oklch(0.31 0.0532 177.47);
     --color-soft-green: oklch(0.49 0.046 195.75)
 }
+
+@font-face {
+    font-family: 'Gilgan';
+    src: url('/font/Gilgan-Regular.otf') format('opentype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+
+body {
+    font-family: 'Gilgan', sans-serif;
+}
