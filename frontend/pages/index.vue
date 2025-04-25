@@ -4,4 +4,6 @@
 
 <template>
   <HeroSection />
+  <MostPopular />
+  <GoodDeals />
 </template>

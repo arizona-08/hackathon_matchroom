@@ -17,7 +17,7 @@ function handleClick(){
                 <span class="inline-block text-sm">M</span>
             </div>
 
-            <ul :class="{'hidden': !isOpen, 'block': isOpen}" class="absolute top-full right-0 bg-primary text-white min-w-40 mt-2 py-1 rounded-tl-2xl rounded-bl-2xl rounded-br-2xl">
+            <ul :class="{'hidden': !isOpen, 'block': isOpen}" class="absolute z-20 top-full right-0 bg-primary text-white min-w-40 mt-2 py-1 rounded-tl-2xl rounded-bl-2xl rounded-br-2xl">
                 <div class="space-y-1 mb-2 px-3">
                     <li>Se connecter</li>
                     <li>Se connecter</li>

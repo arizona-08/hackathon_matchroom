@@ -5,6 +5,11 @@ export default defineNuxtConfig({
   devtools: { enabled: true },
   css: ['~/assets/css/main.css', 'mapbox-gl/dist/mapbox-gl.css'],
 
+  vue: {
+    compilerOptions: {
+      isCustomElement: (tag) => ['popularcarousel', 'carouselitem'].includes(tag),
+    }
+  },
   vite: {
     plugins: [
       tailwindcss(),
