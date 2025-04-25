@@ -14,6 +14,8 @@ class Hotel extends Model
         'user_id',
         'name',
         'description',
+        'city',
+        'number_of_stars',
         'address',
         'latitude',
         'longitude',

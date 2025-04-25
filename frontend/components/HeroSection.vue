@@ -1,14 +1,14 @@
 <template>
-  <section class="px-4 relative">
-    <div class="absolute top-10 left-1/2 -translate-x-1/2 w-full px-4 flex flex-col items-center justify-center gap-4">
-      <h1 class="text-2xl text-white font-semibold text-center mb-4">Négociez vos nuits au meilleur prix</h1>
+  <section class="px-4 relative md:px-10">
+    <div class="absolute top-1/2 -translate-y-1/2 left-1/2 -translate-x-1/2 w-full px-4 flex flex-col items-center justify-center gap-4">
+      <h1 class="px-4 text-3xl text-white font-semibold text-center mb-4 md:text-4xl text-shadow-lg">Négociez vos nuits au meilleur prix.</h1>
       <form method="post" class="w-full flex flex-col items-center justify-center gap-4 mb-9">
         <input 
           type="search" 
           name="" 
           id="" 
           placeholder="Un quartier, une rue, une ville ?"
-          class="bg-white border-gray-300 rounded-full p-2 w-10/12 px-4 py-2 placeholder:font-medium"
+          class="bg-white border-gray-300 rounded-md p-2 w-10/12 px-4 py-2 placeholder:font-medium md:w-6/12"
         />
       </form>
     </div>
@@ -21,7 +21,7 @@
         </div>
       </div>
     
-      <div class="img-container h-[410px] w-full">
+      <div class="img-container h-[410px] w-full lg:h-[446px]">
         <img
           src="/img/pngs_jpgs/beach.png"
           alt="" 

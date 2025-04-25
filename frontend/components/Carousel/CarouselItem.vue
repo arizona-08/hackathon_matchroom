@@ -4,7 +4,7 @@ interface CarouselItemType{
     address: string
     city: string
     price: number
-    capaxcity: number
+    capacity: number
     stars: number
     tags: string[]
     img: string
@@ -19,7 +19,7 @@ const {item} = defineProps<{
 
 <template>
     <li 
-        class="snap-center transition-transform duration-300 ease-in-out w-74 h-96 shrink-0 rounded-2xl overflow-hidden relative"
+        class="snap-center transition-transform duration-300 ease-in-out w-74 h-96 shrink-0 rounded-2xl overflow-hidden relative md:w-10/12 lg:w-6/12 2xl:w-4/12"
         :class="scale ? 'scale-100 z-10' : 'scale-95 opacity-80'"
     
     >
@@ -44,8 +44,8 @@ const {item} = defineProps<{
                     
                     <div class="mb-6 font-medium">
                         <p>{{ item.address }} - {{ item.city }}</p>
-                        <p>{{ item.price }} /nuits</p>
-                        <p>{{ item.capaxcity }} personnes</p>
+                        <p>{{ item.price }}€ /nuits</p>
+                        <p>{{ item.capacity }} personnes</p>
                     </div>
                     
                     <div class="tags flex gap-1">

@@ -19,7 +19,7 @@ const {item} = defineProps<{
 
 <template>
     <li 
-        class="snap-center transition-transform duration-300 ease-in-out w-82 h-54 shrink-0 rounded-2xl overflow-hidden relative"
+        class="snap-center transition-transform duration-300 ease-in-out w-82 h-54 shrink-0 rounded-2xl overflow-hidden relative md:w-6/12 lg:w-4/12 2xl:w-3/12"
         :class="scale ? 'scale-100 z-10' : 'scale-95 opacity-80'"
     
     >
