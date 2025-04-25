@@ -8,8 +8,8 @@ async function fetchRooms(){
     const response = await getAllRooms();
     if (response.status === 200) {
         allRooms.value = response.data.rooms;
-        console.log(allRooms.value);
-        console.log(hasRooms.value);
+        // console.log(allRooms.value);
+        // console.log(hasRooms.value);
     } else {
         console.error('Error fetching rooms:', response);
     }
@@ -45,7 +45,7 @@ onMounted(async () => {
                         city: room.hotel.city,
                         price: room.price_per_night,
                         stars: room.hotel.number_of_stars,
-                        capaxcity: room.capaxcity,
+                        capacity: room.capacity,
                         tags: room.equipement,
                         link: '/hotel/rooms/' + room.id
                         }"
