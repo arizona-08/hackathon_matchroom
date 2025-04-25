@@ -5,9 +5,11 @@ import FooterLayout from '~/components/layout/FooterLayout.vue';
 </script>
 
 <template>
-    <div>
+    <div class="flex flex-col min-h-screen">
         <NavbarLayout/>
-        <slot/>
+        <main class="flex-grow">
+            <slot/>
+        </main>
         <FooterLayout/>
     </div>
     
