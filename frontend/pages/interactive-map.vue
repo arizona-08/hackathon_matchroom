@@ -1,21 +1,28 @@
 <template>
-    <div class="map-container relative w-full h-[75vh]">
-      <div class="absolute z-10 top-4 left-4 right-4 flex gap-2 bg-white p-2 rounded shadow">
+  <div class="map-container relative w-screen h-screen">
+    <div class="absolute top-6 left-6 z-50">
+      <div class="flex items-center w-96 px-4 py-2 border-1 bg-white shadow-md rounded-lg border border-black">
         <input
           v-model="searchQuery"
-          placeholder="Rechercher une ville, ex: Paris"
-          class="flex-1 border border-gray-300 p-2 rounded"
+          placeholder="Une ville, un quartier, une rue ?"
+          class="flex-1 bg-transparent outline-none text-sm placeholder-gray-500"
           @keyup.enter="searchCity"
         />
-        <button class="bg-blue-600 text-white px-4 rounded" @click="searchCity">🔍</button>
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-400" fill="none" viewBox="0 0 24 24"
+             stroke="currentColor" stroke-width="2">
+          <path stroke-linecap="round" stroke-linejoin="round"
+                d="M21 21l-4.35-4.35M16.5 10.5a6 6 0 11-12 0 6 6 0 0112 0z"/>
+        </svg>
       </div>
-  
-      <div ref="mapContainer" class="w-full h-full" />
-  
-      <SearchBar @search="handleSearch" />
-      <FilterPanel @filter="applyFilters" />
     </div>
-  </template>
+
+    <div ref="mapContainer" class="w-full h-full z-0" />
+
+    <SearchBar @search="handleSearch" />
+    <FilterPanel @filter="applyFilters" />
+  </div>
+</template>
+
   
   <script setup>
   import { ref, onMounted } from 'vue'

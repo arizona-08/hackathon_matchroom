@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="Calque_1" data-name="Calque 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 83.15 86.42">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: #fff;
+      }
+    </style>
+  </defs>
+  <rect width="83.15" height="83.15" rx="8.11" ry="8.11"/>
+  <rect class="cls-1" x="7.41" y="7.55" width="67.7" height="15.67"/>
+  <circle cx="18.85" cy="15.18" r="3.81"/>
+  <circle cx="30.09" cy="15.18" r="3.81"/>
+  <circle cx="41.33" cy="15.18" r="3.81"/>
+  <circle cx="11.5" cy="82.61" r="3.81"/>
+  <circle cx="71.3" cy="82.61" r="3.81"/>
+</svg>
