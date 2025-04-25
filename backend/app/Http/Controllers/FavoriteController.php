@@ -4,30 +4,38 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Favorite;
+use Illuminate\Support\Facades\Auth;
 
 class FavoriteController extends Controller
 {
-    public function index(Request $request)
+    public function index()
     {
-        return $request->user()->favorites()->with('room')->get();
+        return Favorite::with('room')->where('user_id', Auth::id())->get();
     }
 
     public function store(Request $request)
     {
-        $request->validate([
+        $validated = $request->validate([
             'room_id' => 'required|exists:rooms,id',
         ]);
 
-        return $request->user()->favorites()->firstOrCreate([
-            'room_id' => $request->room_id,
+        $favorite = Favorite::firstOrCreate([
+            'user_id' => Auth::id(),
+            'room_id' => $validated['room_id'],
         ]);
+
+        return response()->json($favorite, 201);
     }
 
-    public function destroy(Request $request, $room_id)
+    public function destroy(Favorite $favorite)
     {
-        $request->user()->favorites()->where('room_id', $room_id)->delete();
+        // Vérifier que le favori appartient bien au user connecté
+        if ($favorite->user_id !== auth()->id()) {
+            abort(403, 'Unauthorized');
+        }
 
-        return response()->json(['message' => 'Favori supprimé']);
+        $favorite->delete();
+        return response()->json(null, 204);
     }
 
 }
