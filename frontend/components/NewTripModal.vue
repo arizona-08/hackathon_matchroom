@@ -130,7 +130,7 @@ const trip = ref({
   price_min: 0,
   price_max: 500,
   guests: 1,
-  beds: 1,
+  number_of_beds: 1,
   stars: 3,
   equipment: []
 })
