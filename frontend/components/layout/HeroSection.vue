@@ -92,6 +92,11 @@
     border: none;
     font-size: 1rem;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    background-color: white;
+    color: grey;
+    font-family: 'Gilgan', sans-serif;
+    font-size: 1.1rem;
+    font-weight: normal;
   }
   
   .stats-container {
