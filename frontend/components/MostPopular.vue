@@ -41,10 +41,10 @@ onMounted(async () => {
                     :item="{
                         img: room.photo_url,
                         title: room.hotel.name,
-                        address: room.address,
-                        city: room.city,
+                        address: room.hotel.address,
+                        city: room.hotel.city,
                         price: room.price_per_night,
-                        stars: room.stars,
+                        stars: room.hotel.number_of_stars,
                         capaxcity: room.capaxcity,
                         tags: room.equipement,
                         link: '/hotel/rooms/' + room.id

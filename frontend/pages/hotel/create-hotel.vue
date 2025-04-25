@@ -17,6 +17,11 @@
           <label class="block">Adresse</label>
           <input v-model="form.address" type="text" class="w-full border p-2 rounded" required />
         </div>
+
+        <div class="mb-4">
+          <label class="block">Ville</label>
+          <input v-model="form.city" type="text" class="w-full border p-2 rounded" required />
+        </div>
   
         <div class="mb-4">
           <label class="block">Latitude</label>
@@ -26,6 +31,11 @@
         <div class="mb-4">
           <label class="block">Longitude</label>
           <input v-model="form.longitude" type="number" step="any" class="w-full border p-2 rounded" />
+        </div>
+
+        <div class="mb-4">
+          <label class="block">Nombre d'étoile</label>
+          <input v-model="form.number_of_stars" type="number" step="any" class="w-full border p-2 rounded" />
         </div>
   
         <div class="mb-4">
@@ -54,6 +64,8 @@
     name: '',
     description: '',
     address: '',
+    city: '',
+    number_of_stars: '',
     latitude: '',
     longitude: '',
     rating_average: '',
@@ -72,6 +84,8 @@
         name: '',
         description: '',
         address: '',
+        city: '',
+        number_of_stars: '',
         latitude: '',
         longitude: '',
         rating_average: '',

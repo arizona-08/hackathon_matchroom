@@ -18,10 +18,12 @@ class HotelController extends Controller
             'name' => 'required|string|max:255',
             'description' => 'nullable|string',
             'address' => 'required|string|max:255',
+            'city' => 'required|string|max:255',
             'latitude' => 'nullable|numeric',
             'longitude' => 'nullable|numeric',
             'rating_average' => 'nullable|numeric',
             'cancellation_policy' => 'nullable|string',
+            'number_of_stars' => 'required|integer',
         ]);
 
         $user = Auth::user();
