@@ -9,6 +9,7 @@ case $ENV in
     echo "🚀 Starting development environment..."
     docker-compose down
     docker-compose up --build -d
+    php artisan storage:link
     echo "✅ Development environment started!"
     echo "📊 Frontend: http://localhost:3000"
     echo "⚙️ Backend API: http://localhost:8000"
@@ -19,6 +20,7 @@ case $ENV in
     echo "🚀 Starting production environment..."
     docker-compose -f docker-compose.prod.yml down
     docker-compose -f docker-compose.prod.yml up -d
+    php artisan storage:link
     echo "✅ Production environment started!"
     echo "📊 Frontend: https://matchroom.online"
     echo "⚙️ Backend API: https://api.matchroom.online"
