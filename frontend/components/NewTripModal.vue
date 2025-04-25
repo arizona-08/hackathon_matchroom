@@ -1,5 +1,5 @@
 <template>
-  <div v-if="isOpen" class="fixed inset-0 z-50 flex items-center justify-center bg-custom-white bg-opacity-40 backdrop-bl-sm border border-soft-green">
+  <div v-if="isOpen" class="fixed inset-0 z-50 flex items-center justify-center  bg-opacity-40 backdrop-bl-sm border border-soft-green">
     <div class="overflow-y-auto hide-scrollbar bg-custom-white border-3 border-soft-green shadow-lg p-6 w-full max-w-5xl max-h-[90vh] overflow-y-auto rounded-tr-lg rounded-br-lg rounded-bl-lg scrollbar-thin scrollbar-thumb-primary scrollbar-track-custom-white">
   <div class="flex justify-end mb-2">
     <button @click="closeModal" class="text-black text-xl font-bold">&times;</button>

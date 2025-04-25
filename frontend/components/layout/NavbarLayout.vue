@@ -18,7 +18,7 @@ const route = useRoute()
       
       <div class="hidden lg:flex items-center gap-20 text-black font-medium text-xl">
         <NuxtLink to="/filtre/search" :class="{ 'text-primary font-semibold': route.path.includes('/filtres') }">Filtres</NuxtLink>
-        <NuxtLink to="/match" :class="{ 'text-primary font-medium': route.path.includes('/match') }">Match</NuxtLink>
+        <NuxtLink to="/swipe" :class="{ 'text-primary font-medium': route.path.includes('/match') }">Match</NuxtLink>
         <NuxtLink to="/" :class="{ 'text-primary font-semibold': route.path.includes('/annonces') }">Annonces</NuxtLink>
         <NuxtLink to="/interactive-map" :class="{ 'text-primary font-semibold': route.path.includes('/plan') }">Plan</NuxtLink>
         <NuxtLink to="/negociation" :class="{ 'text-primary font-semibold': route.path.includes('/chats') }">Chat</NuxtLink>
