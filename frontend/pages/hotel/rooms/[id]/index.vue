@@ -4,10 +4,16 @@ import { getRoom, getSameHotelRoom } from '~/lib/room';
 
 const room = ref(null);
 const sameHotelRooms = ref([]);
-
+const carouselRef = ref(null)
 const route = useRoute()
 
 const room_id = route.params.id;
+
+const scrollBy = (offset) => {
+  if (carouselRef.value) {
+    carouselRef.value.scrollBy({ left: offset, behavior: 'smooth' })
+  }
+}
 
 async function fetchRoom(){
     const response = await getRoom(room_id);
@@ -21,6 +27,7 @@ async function fetchRoom(){
 }
 
 async function fetchSameHotelRooms(){
+    if(!room.value) return;
     const hotel_id = room.value.hotel.id;
     const response = await getSameHotelRoom(hotel_id);
     if(response.status === 200){
@@ -43,7 +50,7 @@ onMounted( async () => {
 </script>
 
 <template>
-    <template v-if="hasRoom">
+    <template v-if="hasRoom && room">
         <section class="relative w-screen h-screen">
             <div class="img-container w-full h-full">
                 <img :src="room.photo_url" alt="Room Image" class="w-full h-full object-cover">
@@ -129,8 +136,14 @@ onMounted( async () => {
         <section class="px-4 mt-8" v-if="hasSameHotelRooms">
             <h2 class="mb-6 font-semibold">Dans le même hôtel.</h2>
 
-            <div class="overflow-x-auto">
-                <ul>
+            <div class="">
+                <ul class="overflow-x-auto flex gap-4 py-4 relative">
+                    <button
+                        @click="scrollBy(-300)"
+                        class="hidden md:flex items-center justify-center w-10 h-10 absolute left-0 top-1/2 -translate-y-1/2 z-10 bg-custom-white rounded-full shadow-md hover:bg-white transition"
+                        >
+                            ‹
+                    </button>
                     <li v-for="sameRoom in sameHotelRooms" :key="sameRoom.id" class="snap-center transition-transform duration-300 ease-in-out w-82 h-54 shrink-0 rounded-2xl overflow-hidden relative md:w-6/12 lg:w-4/12 2xl:w-3/12">
                         <NuxtLink :to="`/hotel/room/${sameRoom.id}`" class="block relative w-full h-full">
                             <div class="w-full h-full">
@@ -169,6 +182,12 @@ onMounted( async () => {
                         </NuxtLink>
                         
                     </li>
+                    <button
+                        @click="scrollBy(300)"
+                        class="hidden md:flex items-center justify-center w-10 h-10 absolute right-0 top-1/2 -translate-y-1/2 z-10 bg-custom-white rounded-full shadow-md hover:bg-white transition"
+                    >
+                        ›
+                    </button>
                 </ul>
             </div>
         </section>
