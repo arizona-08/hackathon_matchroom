@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Hotel;
 use App\Models\Room;
 use App\Models\RoomImage;
 use Illuminate\Http\Request;
@@ -13,6 +14,13 @@ class RoomController extends Controller
     {
         return response()->json([
             "rooms" => Room::with('hotel', 'images')->get()
+        ]);
+    }
+
+    public function getRoomsFromHotel(Hotel $hotel){
+        $rooms = Room::where('hotel_id', $hotel->id)->with('images', 'hotel')->get();
+        return response()->json([
+            "rooms" => $rooms
         ]);
     }
 

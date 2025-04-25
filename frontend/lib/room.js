@@ -54,6 +54,16 @@ export async function getAllRooms(){
     }
 }
 
+export async function getSameHotelRoom(hotel_id){
+    try {
+        const response = await api.get(`/api/rooms/from-hotel/${hotel_id}`)
+        return response
+    } catch (error) {
+        console.error('[GET ROOMS ERROR]', error)
+        throw error
+    }
+}
+
 export async function getRoom(id){
     try {
         const response = await api.get(`/api/rooms/${id}`)
