@@ -63,11 +63,11 @@ onMounted(async () => {
 
     <!-- Carousel -->
     <ul
-  ref="carouselRef"
-  class="flex gap-4 snap-x snap-mandatory overflow-x-scroll py-6 scroll-smooth hide-scrollbar"
->
-  <slot :focused-index="focusedIndex" />
-</ul>
+      ref="carouselRef"
+          class="flex gap-4 snap-x snap-mandatory overflow-x-scroll py-6 scroll-smooth hide-scrollbar"
+        >
+      <slot :focused-index="focusedIndex" />
+    </ul>
 
     <!-- Right Button -->
     <button
