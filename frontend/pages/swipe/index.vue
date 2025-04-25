@@ -41,26 +41,32 @@
   </div>
 </template>
 
-<script setup lang="ts">import { ref, onMounted } from 'vue';
+<script setup lang="ts">
+import { ref, onMounted } from 'vue';
+import { useRouter } from 'vue-router';
 import { swipe } from '~/lib/swipe';
-import { addToFavoris } from '~/lib/favoris'; // 🧡 fonction pour ajouter aux favoris
-import { useRouter } from 'vue-router'; // ✅ pour rediriger vers négociation
+import { addToFavoris } from '~/lib/favoris';
 import CarouselItemSwipe from '~/components/Carousel/CarouselItemSwipe.vue';
+import { startNegotiation } from '~/lib/negociation'; // ✅ import API négo
+import { api } from '~/lib/api'; // ✅ pour récupérer l'user
 
 const rooms = ref<any[]>([]);
 const currentRoom = ref<any | null>(null);
-const userId = 1; // À remplacer par l'ID du user connecté
+const userId = ref<number | null>(null);
 const router = useRouter();
 const isFavori = ref(false);
 
 onMounted(async () => {
   try {
+    const userRes = await api.get('/api/user');
+    userId.value = userRes.data.id;
+
     const response = await fetch('http://localhost:8000/api/rooms');
     const data = await response.json();
     rooms.value = data.rooms;
     nextRoom();
   } catch (error) {
-    console.error('Erreur en chargeant les rooms:', error);
+    console.error('Erreur en chargeant les données:', error);
   }
 });
 
@@ -69,7 +75,7 @@ function nextRoom() {
 }
 
 function handleSwipe(action: 'pass') {
-  swipe(userId, currentRoom, nextRoom, action);
+  swipe(userId.value, currentRoom, nextRoom, action);
 }
 
 async function addToFavorites() {
@@ -77,16 +83,25 @@ async function addToFavorites() {
 
   try {
     await addToFavoris(currentRoom.value.id);
-    triggerPulse(); // Animation ❤️
+    triggerPulse();
   } catch (error) {
     console.error('Erreur en ajoutant aux favoris:', error);
   }
 }
 
 async function startNego() {
-  if (!currentRoom.value) return;
+  if (!currentRoom.value || !userId.value) return;
 
-  router.push(`/negociation?room_id=${currentRoom.value.id}`);
+  try {
+    const res = await startNegotiation({
+      room_id: currentRoom.value.id,
+      user_id: userId.value
+    });
+
+    router.push(`/negociation?room_id=${currentRoom.value.id}`);
+  } catch (err) {
+    console.error('Erreur lors de la création de la négociation :', err);
+  }
 }
 
 function triggerPulse() {
@@ -96,6 +111,7 @@ function triggerPulse() {
   }, 600);
 }
 </script>
+
 
 <style scoped>
 .swipe-page {
@@ -123,14 +139,43 @@ function triggerPulse() {
 .svg-buttons {
   display: flex;
   justify-content: center;
-  gap: 2rem;
-  margin-top: 1.5rem;
+  gap: 2.5rem;
+  margin-top: 2rem;
 }
 
 .icon-svg {
-  width: 60px;
-  height: 60px;
+  width: 28px;
+  height: 28px;
   cursor: pointer;
+}
+
+.svg-buttons > * {
+  width: 85px;
+  height: 55px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Bouton NON */
+.svg-buttons > *:nth-child(1) {
+  background-color: #6b3f3f;
+}
+
+/* Bouton FAVORI */
+.svg-buttons > *:nth-child(2) {
+  background-color: #e9edf1;
+  border: 2px solid transparent;
+}
+
+.svg-buttons > *:nth-child(2):hover {
+  border-color: #aaa;
+}
+
+/* Bouton OUI */
+.svg-buttons > *:nth-child(3) {
+  background-color: #3f6868;
 }
 
 .pulse {
@@ -150,6 +195,7 @@ function triggerPulse() {
     transform: scale(1);
   }
 }
+
 
 .no-more {
   text-align: center;
