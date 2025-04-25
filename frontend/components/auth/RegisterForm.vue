@@ -22,22 +22,23 @@
               v-model="credentials.firstname"
               type="text"
               id="Prénom"
-              placeholder="Timothée"
+              placeholder="Prénom"
               required
               class="w-full px-3 py-1.5 rounded-lg border border-soft-green bg-custom-white placeholder-gray-400 text-gray-700 focus:outline-none focus:ring-2 focus:ring-soft-green"
             />
           </div>
   
-          <div>
-            <label for="phone" class="block text-lg font-semibold text-[#000] mb-1">Téléphone..</label>
-            <input
-              v-model="credentials.phone"
-              type="tel"
-              id="phone"
-              placeholder="+33"
-              class="w-full px-3 py-1.5 rounded-lg border border-soft-green bg-custom-white placeholder-gray-400 text-gray-700 focus:outline-none focus:ring-2 focus:ring-soft-green"
-            />
-          </div>
+            <div>
+            <label for="role" class="block text-lg font-semibold text-[#000] mb-1">Rôle..</label>
+            <select
+              v-model="credentials.role"
+              id="role"
+              class="w-full px-3 py-1.5 rounded-lg border border-soft-green bg-custom-white text-gray-700 focus:outline-none focus:ring-2 focus:ring-soft-green"
+            >
+              <option value="voyageur">Voyageur</option>
+              <option value="hotelier">Hotelier</option>
+            </select>
+            </div>
         </div>
   
         <!-- Colonne de droite -->

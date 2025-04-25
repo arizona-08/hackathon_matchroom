@@ -48,7 +48,7 @@
             </div>
 
             <p v-if="filter.guests">{{ filter.guests }} Personne<span v-if="filter.guests > 1">s</span></p>
-            <p v-if="filter.beds">{{ filter.beds }} Lit<span v-if="filter.beds > 1">s</span></p>
+            <p v-if="filter.number_of_beds">{{ filter.number_of_beds }} Lit<span v-if="filter.number_of_beds > 1">s</span></p>
           </div>
 
         </div>

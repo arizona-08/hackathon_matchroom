@@ -48,6 +48,13 @@
       </NuxtLink>
     </div>
 
+    <div class="text-left text-sm text-[#000]">
+      <NuxtLink to="/auth/register" class="hover:underline text-black text-xl flex items-center gap-1 font-medium">
+      S'inscrire 
+      </NuxtLink>
+    </div>
+
+
   </form>
 </template>
 

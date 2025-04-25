@@ -15,7 +15,11 @@ class NegotiationController extends Controller
 
         $latestNegotiations = DB::table('negotiations')
             ->select(DB::raw('MAX(id) as id'))
-            ->where('user_id', $userId)
+            ->whereIn('room_id', function ($query) use ($userId) {
+                $query->select('room_id')
+                    ->from('negotiations')
+                    ->where('user_id', $userId);
+            })
             ->groupBy('room_id');
 
         $negotiations = Negotiation::with(['room.hotel'])
@@ -24,6 +28,7 @@ class NegotiationController extends Controller
 
         return response()->json($negotiations);
     }
+
 
     public function roomHistory($roomId)
     {

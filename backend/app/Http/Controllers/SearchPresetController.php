@@ -80,7 +80,7 @@ class SearchPresetController extends Controller
         }
 
         if ($preset->beds) {
-            $query->where('beds', '>=', $preset->beds);
+            $query->where('number_of_beds', '>=', $preset->beds);
         }
 
         $equipments = ['wifi', 'kitchen', 'washing_machine', 'dryer', 'air_conditioning', 'heating', 'tv', 'iron'];
