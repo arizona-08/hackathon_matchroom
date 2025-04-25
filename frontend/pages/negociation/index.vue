@@ -102,7 +102,14 @@
           <button v-if="user.role === 'hotelier' && canAccept" @click="declinePrice" class="w-full bg-primary text-white font-semibold py-2 rounded-full hover:opacity-80">Refuser</button>
           <button v-if="user.role === 'hotelier' && canAccept" @click="submitPrice" class="w-full bg-primary text-white font-semibold py-2 rounded-full hover:opacity-80">Proposer un nouveau prix</button>
 
-          <button v-if="user.role === 'voyageur' && lastNegotiation?.status === 'accepted'" class="w-full bg-primary text-white font-semibold py-2 rounded-full hover:opacity-80">Passer à la réservation</button>
+          <button
+            v-if="user.role === 'voyageur' && lastNegotiation?.status === 'accepted'"
+            @click="goToReservation"
+            class="w-full bg-primary text-white font-semibold py-2 rounded-full hover:opacity-80"
+          >
+            Passer à la réservation
+          </button>
+
           <button v-if="user.role === 'voyageur' && lastNegotiation?.status === 'accepted'" @click="submitPrice" class="w-full bg-primary text-white font-semibold py-2 rounded-full hover:opacity-80">Proposer un nouveau prix</button>
 
           <button v-if="user.role === 'voyageur' && lastNegotiation?.status === 'countered' && !hasMadeOffer" @click="acceptPrice" class="w-full bg-primary text-white font-semibold py-2 rounded-full hover:opacity-80">Accepter la contre-offre</button>
@@ -248,6 +255,22 @@ async function declinePrice() {
   const selected = conversations.value.find(c => c.id === selectedConversationId.value)
   if (selected) selected.status = 'refused'
 }
+
+function goToReservation() {
+  const selected = conversations.value.find(c => c.id === selectedConversationId.value)
+  if (!selected || !lastNegotiation.value) return
+
+  router.push({
+    path: '/reservation',
+    query: {
+      room_id: selected.room_id,
+      price: lastNegotiation.value.proposed_price,
+      negotiation_id: selected.id
+    }
+  })
+}
+
+
 </script>
 
 <style scoped>
