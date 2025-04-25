@@ -52,7 +52,8 @@ onMounted(() => {
                 <div class=" mt-2 mb-2 px-3" v-if="user != null">
                     <div class="space-y-2">
                         <li><NuxtLink to="/profil">Compte</NuxtLink></li>
-                        <li><NuxtLink to="/favorites">Favoris</NuxtLink></li>
+                        <li><NuxtLink to="/favoris">Favoris</NuxtLink></li>
+                        <li><NuxtLink to="/swipe">Swipe</NuxtLink></li>
                     </div>
                 </div>
 
