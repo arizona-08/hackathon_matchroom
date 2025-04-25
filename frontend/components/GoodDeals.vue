@@ -1,5 +1,6 @@
 <script setup>
 import PopularCarousel from './Carousel/PopularCarousel.vue';
+import SmallCarouselItem from './Carousel/SmallCarouselItem.vue';
 </script>
 
 <template>
@@ -13,7 +14,7 @@ import PopularCarousel from './Carousel/PopularCarousel.vue';
             /> -->
         <PopularCarousel v-slot="{ focusedIndex }">
             
-            <CarouselItem
+            <SmallCarouselItem
                 :item="{
                     img: '/img/pngs_jpgs/chambre_hotel.png',
                     title: 'Hotel Matchroom',
@@ -22,12 +23,13 @@ import PopularCarousel from './Carousel/PopularCarousel.vue';
                     price: 180,
                     stars: 5,
                     capaxcity: 4,
-                    tags: ['Wi-Fi', 'Piscine', 'Climatisation']
+                    tags: ['Wi-Fi', 'Piscine', 'Climatisation'],
+                    link: '/hotel/rooms/2'
                 }"
                 :scale="focusedIndex === 0"
             />
 
-            <CarouselItem 
+            <SmallCarouselItem
                 :item="{
                     img: '/img/pngs_jpgs/chambre_hotel.png',
                     title: 'Hotel Matchroom',

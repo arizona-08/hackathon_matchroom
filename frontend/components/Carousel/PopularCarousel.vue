@@ -2,7 +2,7 @@
 import { onMounted, ref, nextTick, reactive, watch } from 'vue'
 
 const carouselRef = ref<HTMLUListElement | null>(null)
-const focusedIndex = ref(1) // 👈 start at the 2nd item
+const focusedIndex = ref(0) // 👈 start at the 2nd item
 
 const handleScroll = () => {
   if (!carouselRef.value) return
@@ -31,12 +31,6 @@ onMounted(async () => {
     handleScroll()
 
     const carousel = carouselRef.value
-    if (carousel && carousel.children[1]) {
-        const secondItem = carousel.children[1] as HTMLElement
-        const offset =
-        secondItem.offsetLeft - carousel.offsetWidth / 2 + secondItem.offsetWidth / 2
-        carousel.scrollTo({ left: offset, behavior: 'smooth' })
-    }
 
     carousel?.addEventListener('scroll', handleScroll)
 })
@@ -44,7 +38,7 @@ onMounted(async () => {
 
 <template>
     <div class="mt-6 px-4">
-        <ul ref="carouselRef" class="flex gap-4 snap-x snap-mandatory overflow-x-scroll">
+        <ul ref="carouselRef" class="flex gap-4 snap-x snap-mandatory overflow-x-scroll py-6">
             <slot :focused-index="focusedIndex"/>
         </ul>
     </div>
