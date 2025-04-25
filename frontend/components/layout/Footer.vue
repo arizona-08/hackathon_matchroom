@@ -24,7 +24,7 @@
   
   <style scoped>
   .footer {
-    background-color: #0a4333; /* Couleur vert foncé comme sur l'image */
+    background-color: #083A31; /* Couleur vert foncé comme sur l'image */
     color: white;
     padding: 2rem 0;
     width: 100%;
@@ -47,7 +47,7 @@
   }
   
   .footer-copyright {
-    color: rgba(255, 255, 255, 0.7);
+    color: white;
     font-size: 0.9rem;
   }
   

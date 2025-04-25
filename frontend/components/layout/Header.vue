@@ -3,7 +3,7 @@
       <div class="logo-container">
         <NuxtLink to="/">
           <div class="logo">
-            <Icon name="mdi:tag" class="logo-icon" />
+            <img src="/svg/logo.svg" alt="MatchRoom Logo" class="logo-icon" />
             <span class="logo-text">MatchRoom</span>
           </div>
         </NuxtLink>
@@ -163,4 +163,10 @@
   .menu-icon {
     font-size: 1.3rem;
   }
+  .nav-item a {
+  font-family: 'Gilgan', sans-serif;
+  font-size: 1.1rem;
+  font-weight: normal;
+}
+
   </style>
