@@ -1,11 +1,11 @@
 <?php
 
-use Illuminate\Session\Middleware\StartSession;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Session\Middleware\StartSession;
 use App\Http\Controllers\FavoriteController;
 
-Route::middleware(StartSession::class)->group(function () {
-    Route::apiResource('favoris', FavoriteController::class)->only([
-        'index', 'store', 'destroy'
-    ]);
+Route::middleware([StartSession::class, 'auth:sanctum'])->group(function () {
+    Route::get('/favoris', [FavoriteController::class, 'index']);
+    Route::post('/favoris', [FavoriteController::class, 'store']);
+    Route::delete('/favoris/{favorite}', [FavoriteController::class, 'destroy']);
 });

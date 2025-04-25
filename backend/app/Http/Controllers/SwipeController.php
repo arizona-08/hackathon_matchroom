@@ -14,13 +14,21 @@ class SwipeController extends Controller
 
     public function store(Request $request)
     {
-        $request->validate([
+        $validated = $request->validate([
             'user_id' => 'required|exists:users,id',
             'room_id' => 'required|exists:rooms,id',
             'action' => 'required|in:like,pass',
         ]);
 
-        $swipe = Swipe::create($request->all());
+        $swipe = Swipe::create($validated);
+
+        // BONUS : ajouter aux favoris si "like"
+        if ($validated['action'] === 'like') {
+            $swipe->user->favorites()->firstOrCreate([
+                'room_id' => $validated['room_id'],
+            ]);
+        }
+
         return response()->json($swipe, 201);
     }
 
@@ -41,4 +49,3 @@ class SwipeController extends Controller
         return response()->json(null, 204);
     }
 }
-
