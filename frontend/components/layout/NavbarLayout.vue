@@ -8,7 +8,7 @@ const route = useRoute()
 </script>
 
 <template>
-  <nav class="px-4 flex md:px-10">
+  <nav class="px-4 flex md:px-10 fixed w-full top-0 z-30 bg-custom-white">
     <div class="flex justify-between items-center w-full">
       <NuxtLink to="/">
         <div class="logo-container">
