@@ -1,8 +1,8 @@
 <template>
-    <div class="bg-[#E9EDF1] min-h-screen py-10 px-4">
+    <div class="bg-custom-white min-h-screen py-10 px-4">
       <div class="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-10">
   
-        <div class="bg-white rounded-lg shadow-md p-6 md:col-span-2 space-y-8">
+        <div class="bg-custom-white  border border-primary rounded-tr-lg rounded-br-lg rounded-bl-lg shadow-md p-6 md:col-span-2 space-y-8">
           <h2 class="text-2xl font-bold text-[#083A31] mb-4">Demande de réservation</h2>
   
           <div>
@@ -53,8 +53,8 @@
           </div>
         </div>
   
-        <div class="bg-white rounded-lg shadow-md p-6">
-          <h3 class="text-lg font-semibold text-[#083A31] mb-4">Récapitulatif</h3>
+        <div class="bg-custom-white border border-primary rounded-tr-lg rounded-br-lg rounded-bl-lg shadow-md p-6">
+          <h3 class="text-2xl font-bold text-primary mb-4">Récapitulatif</h3>
           <div v-if="room">
             <img :src="room.photo_url || 'https://via.placeholder.com/300x200?text=Chambre'" class="w-full h-40 object-cover rounded mb-4" />
             <p class="font-bold">{{ room.name }}</p>
