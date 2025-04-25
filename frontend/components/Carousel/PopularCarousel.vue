@@ -37,7 +37,7 @@ onMounted(async () => {
 </script>
 
 <template>
-    <div class="mt-6 px-4">
+    <div class="mt-6 px-4 md:px-10">
         <ul ref="carouselRef" class="flex gap-4 snap-x snap-mandatory overflow-x-scroll py-6">
             <slot :focused-index="focusedIndex"/>
         </ul>

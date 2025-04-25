@@ -49,8 +49,8 @@ onMounted(() => {
             </div>
 
             <ul :class="{'hidden': !isOpen, 'block': isOpen}" class="absolute z-20 top-full right-0 bg-primary text-white min-w-40 mt-2 py-1 rounded-tl-2xl rounded-bl-2xl rounded-br-2xl">
-                <div class="space-y-1 mt-2 mb-2 px-3" v-if="user != null">
-                    <div >
+                <div class=" mt-2 mb-2 px-3" v-if="user != null">
+                    <div class="space-y-2">
                         <li><NuxtLink to="/profil">Compte</NuxtLink></li>
                         <li><NuxtLink to="/favorites">Favoris</NuxtLink></li>
                     </div>
@@ -58,28 +58,31 @@ onMounted(() => {
 
                 <div v-else="user == null" >
                     
-                    <div class="space-y-1 mt-2 mb-2 px-3">
+                    <div class="space-y-2 mt-2 mb-2 px-3">
                         <li><NuxtLink to="/auth/login">Se connecter</NuxtLink></li>
                         <li><NuxtLink to="/auth/register">S'inscrire</NuxtLink></li>
                     </div>
                     <hr class="text-soft-green">
-                    <div class="space-y-1 mt-2 mb-2 px-3">
+                    <div class="space-y-2 mt-2 mb-2 px-3">
                         <li><NuxtLink to="/help">Centre d'aide</NuxtLink></li>
                         <li><NuxtLink to="/parrainage">Parrainage</NuxtLink></li>
                     </div>
                 </div>
                 
-                <div class="space-y-1 mt-2 mb-2 px-3">
+                <div class="space-y-2 mt-2 mb-2 px-3">
                     <div v-if="user && user.role == 'voyageur'">
                         <hr class="text-soft-green">
-                        <li><NuxtLink to="/filtres">Filtres</NuxtLink></li>
-                        <li><NuxtLink to="/match">Matchs</NuxtLink></li>
-                        <li><NuxtLink to="/annonces">Annonce</NuxtLink></li>
-                        <li><NuxtLink to="/interactive-map">Plan</NuxtLink></li>
-                        <li><NuxtLink to="/negotiations">Chat</NuxtLink></li>
-                        <li><NuxtLink to="/reservations">Réservations</NuxtLink></li>
-                        <li><NuxtLink to="/avantages">Mes avantages</NuxtLink></li>
-                        <li><NuxtLink to="/parrainage">Parrainage</NuxtLink></li>
+                        <div class="space-y-2">
+                            <li class="mt-2"><NuxtLink to="/filtre/search">Filtres</NuxtLink></li>
+                            <li><NuxtLink to="/match">Match</NuxtLink></li>
+                            <li><NuxtLink to="/annonces">Annonces</NuxtLink></li>
+                            <li><NuxtLink to="/interactive-map">Plan</NuxtLink></li>
+                            <li><NuxtLink to="/negociation">Chat</NuxtLink></li>
+                            <li><NuxtLink to="/reservations">Réservations</NuxtLink></li>
+                            <li><NuxtLink to="/avantages">Mes avantages</NuxtLink></li>
+                            <li><NuxtLink to="/parrainage">Parrainage</NuxtLink></li>
+                        </div>
+                        
                     </div>
                     <div v-if="user && user.role == 'hotelier'">
                         <hr class="text-soft-green">
@@ -88,7 +91,7 @@ onMounted(() => {
                     
                 </div>
                 
-                <div v-if="user != null" class="space-y-1 mt-2 mb-2 px-3">
+                <div v-if="user != null" class="space-y-2 mt-2 mb-2 px-3">
                     <hr class="text-soft-green">
                     <li><NuxtLink to="/help">Centre d'aide</NuxtLink></li>
                     <button v-if="user != null" :onClick="handleLogout">Me déconnecter</button>

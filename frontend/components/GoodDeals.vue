@@ -25,7 +25,7 @@ onMounted(async () => {
 
 <template>
     <section class="mt-12">
-        <h2 class="text-2xl px-4 font-medium">Bon plans.</h2>
+        <h2 class="text-2xl px-4 font-medium md:px-10">Bon plans.</h2>
          <!-- <SmallCarouselItem
                 v-for="(item, index) in items"
                 :key="index"

@@ -24,7 +24,7 @@ onMounted(async () => {
 
 <template>
     <section class="mt-12">
-        <h2 class="text-2xl px-4 font-medium">Les plus populaires.</h2>
+        <h2 class="text-2xl px-4 font-medium md:px-10">Les plus populaires.</h2>
         <PopularCarousel v-slot="{ focusedIndex }">
             <!-- à garder pour la loop -->
             <!-- <CarouselItem
