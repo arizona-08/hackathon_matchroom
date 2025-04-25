@@ -1,51 +1,40 @@
-<script setup>
-
-import { login } from '~/lib/auth';
-import { logout } from '~/lib/auth';
-const credentials = reactive({
-    email: '',
-    password: ''
-});
-
-const router = useRouter();
-async function handleSubmit() {
-    const response = await login(credentials);
-    if (response.status === 200) {
-        // Handle successful login
-        console.log('login successful');
-        router.push('/');
-    } else {
-        // Handle error
-        console.error('login failed', response);
-    }
-}
-
-async function handleLogout(){
-    const response = await logout();
-    if (response.status === 200) {
-        // Handle successful logout
-        console.log('logout successful');
-    } else {
-        // Handle error
-        console.error('logout failed', response);
-    }
-}
-
-</script>
-
 <template>
-    <form method="POST" class="m-auto flex flex-col gap-2 max-w-86" @submit.prevent="handleSubmit">
-        <div class="flex flex-col gap-1 max-w-86">
-            <label for="email">Email</label>
-            <input class="border" type="email" id="email" name="email" placeholder="Entrez votre email" required v-model="credentials.email">
-        </div>
+  <div class="min-h-screen flex items-center justify-center bg-custom-white px-4">
+    <div class="w-full max-w-5xl bg-custom-white grid grid-cols-1 md:grid-cols-5 gap-4 items-center">
 
-        <div class="flex flex-col gap-1 max-w-86">
-            <label for="password">Mot de passe</label>
-            <input class="border" type="password" id="password" name="password" placeholder="Entrez votre password" required v-model="credentials.password">
-        </div>
+      <!-- Partie gauche : Formulaire -->
+      <div class="p-10 col-span-2 flex justify-center">
+        <LoginForm />
+      </div>
 
-        <button type="submit" class="bg-blue-500 px-2 py-1">Confirmer</button>
-    </form>
-    <button @click="handleLogout" class="bg-red-500 px-2 py-1">Déconnexion</button>
+      <!-- Séparateur -->
+      <div class="hidden md:flex flex-col items-center justify-center text-gray-500 col-span-1">
+        <div class="h-24 w-px bg-soft-green mb-2"></div>
+        <span class="text-lg font-medium text-primary">ou</span>
+        <div class="h-24 w-px bg-soft-green mt-2"></div>
+      </div>
+
+      <!-- Partie droite : Connexions sociales -->
+      <div class="p-10 col-span-2 flex flex-col space-y-10">
+        <SocialButton
+          icon="/svg/Google_logo.svg"
+          text="Continuer avec Google"
+        />
+        <SocialButton
+          icon="/svg/Apple_logo.svg"
+          text="Continuer avec Apple"
+        />
+        <SocialButton
+          icon="/svg/Facebook_logo.svg"
+          text="Continuer avec Facebook"
+        />
+      </div>
+
+    </div>
+  </div>
 </template>
+
+<script setup>
+import LoginForm from '@/components/auth/LoginForm.vue'
+import SocialButton from '@/components/auth/SocialButton.vue'
+</script>
