@@ -4,7 +4,7 @@ interface CarouselItemType{
     address: string
     city: string
     price: number
-    capaxcity: number
+    capacity: number
     stars: number
     tags: string[]
     img: string

@@ -15,12 +15,19 @@ export default defineNuxtConfig({
       tailwindcss(),
     ],
     server: {
-      hmr: {
-        host: 'matchroom.online',
-      },
+      // hmr: {
+      //   host: 'matchroom.online',
+      // },
       host: '0.0.0.0',
       allowedHosts: ['matchroom.online'],
     },
+    
+  },
+  runtimeConfig: {
+    public: {
+      TEST: process.env.NUXT_PUBLIC_TEST,
+      NUXT_PUBLIC_API_URL: process.env.NUXT_PUBLIC_API_URL,
+    }
   },
 
   modules: [

@@ -148,7 +148,7 @@ onMounted( async () => {
                         <NuxtLink :to="`/hotel/room/${sameRoom.id}`" class="block relative w-full h-full">
                             <div class="w-full h-full">
                                 <div class="w-full h-full">
-                                    <NuxtImg :src="sameRoom.photo_url" alt="" class="w-full h-full object-cover"/>
+                                    <img :src="sameRoom.photo_url" alt="" class="w-full h-full object-cover"/>
                                 </div>
 
                                 <div class="layer bg-linear-to-t from-black/80 to-black/0 absolute top-0 left-0 w-full h-full"></div>

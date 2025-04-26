@@ -13,6 +13,6 @@ export interface CarouselItemType{
     address: string
     city: string
     price: number
-    capaxcity: number
+    capacity: number
     tags: string[]
 }

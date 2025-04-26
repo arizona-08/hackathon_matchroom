@@ -9,7 +9,7 @@
           address: currentRoom.hotel.address || '',
           city: currentRoom.hotel.city || '',
           price: currentRoom.price_per_night,
-          capaxcity: currentRoom.capacity,
+          capacity: currentRoom.capacity,
           stars: currentRoom.hotel.rating_average || 0,
           tags: [],
           img: currentRoom.photo_url,

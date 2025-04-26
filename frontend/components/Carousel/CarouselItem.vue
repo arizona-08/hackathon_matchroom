@@ -26,7 +26,7 @@ const {item} = defineProps<{
         <NuxtLink :to="item.link" class="block relative w-full h-full">
             <div class="w-full h-full">
                 <div class="w-full h-full">
-                    <NuxtImg :src="item.img" alt="" class="w-full h-full object-cover"/>
+                    <img :src="item.img" alt="" class="w-full h-full object-cover"/>
                 </div>
 
                 <div class="layer bg-linear-to-t from-black/80 to-black/0 absolute top-0 left-0 w-full h-full"></div>
